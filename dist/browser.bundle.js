@@ -48,6 +48,11 @@ class githubError1 extends Error {
     }
 }
 export { githubError1 as githubError };
+async function getRepositories1(org) {
+    const res = await (await get1(`orgs/${org}/repos`)).json();
+    if (res.message) throw githubError1.notFound(`ORG`, org);
+    return res;
+}
 async function getRepository1(org, repo) {
     const res = await (await get1(`repos/${org}/${repo}`)).json();
     if (res.message) throw githubError1.notFound(`REPOSITORY`, `${org}/${repo}`);
@@ -65,6 +70,7 @@ async function getRepositoryArtifact1(org, repo, id) {
     if (res.message) throw githubError1.notFound(`REPOSITORY`, `${org}/${repo}`);
     return res;
 }
+export { getRepositories1 as getRepositories };
 export { getRepository1 as getRepository };
 export { getRepositoryArtifacts1 as getRepositoryArtifacts };
 export { getRepositoryArtifact1 as getRepositoryArtifact };
