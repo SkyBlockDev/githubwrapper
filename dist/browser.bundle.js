@@ -68,6 +68,14 @@ async function createGist1(options) {
     })).json();
     return res;
 }
+async function updateGist1(id, options) {
+    const res = await (await get1(`gists/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(options),
+        needsToken: true
+    })).json();
+    return res;
+}
 async function viewGists1(options) {
     const res = await (await get1(`gists`, {
         method: 'GET',
@@ -76,8 +84,25 @@ async function viewGists1(options) {
     })).json();
     return res;
 }
+async function getGist1(id) {
+    const res = await (await get1(`gists/${id}`)).json();
+    if (res.message) throw githubError1.notFound(`GIST`, id);
+    return res;
+}
+async function deleteGist1(id) {
+    const res = await (await get1(`gists/${id}`, {
+        method: 'DELETE',
+        needsToken: true
+    })).text();
+    if (!res) return true;
+    if (JSON.parse(res).message) throw githubError1.notFound(`GIST`, id);
+    return false;
+}
 export { createGist1 as createGist };
+export { updateGist1 as updateGist };
 export { viewGists1 as viewGists };
+export { getGist1 as getGist };
+export { deleteGist1 as deleteGist };
 var Language1;
 (function(Language1) {
     Language1["HTML"] = 'HTML';
