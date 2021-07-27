@@ -17,7 +17,7 @@ jobs:
           cache: 'yarn'
       - run: yarn install
 
-      - run: deno bundle mod.ts >> dist/browser.bundle.js
+      - run: deno bundle mod.ts > dist/browser.bundle.js
       - run: yarn esbuild dist/browser.bundle.js --outfile=node.js --platform=node --sourcemap=inline --target=es2020 --format=cjs
 
       - name: Check for modified files
