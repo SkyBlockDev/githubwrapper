@@ -1,11 +1,16 @@
 // deno-lint-ignore-file
 import { get } from "../main.ts";
 import { githubError } from "../error.ts";
-import type { GetRepositoryResponse, GetRepositoryArtifactsResponse, Artifact } from "../types.ts";
+import type { GetRepositoryResponse, GetRepositoryArtifactsResponse, Artifact, GetRepositoriesResponse } from "../types.ts";
 
-export interface GetRepository {
-  org: string;
-  repo: string;
+/**
+ * Get a organization's repostiries
+ * !!! THIS ONLY WORKS FOR organizations
+ */
+export async function getRepositories(org: string): Promise<GetRepositoriesResponse> {
+  const res = await (await get(`orgs/${org}/repos`)).json();
+  if (res.message) throw githubError.notFound(`ORG`, org);
+  return res;
 }
 
 export async function getRepository(org: string, repo: string): Promise<GetRepositoryResponse> {
@@ -35,3 +40,4 @@ export async function getRepositoryArtifact(org: string, repo: string, id: strin
   if (res.message) throw githubError.notFound(`REPOSITORY`, `${org}/${repo}`);
   return res;
 }
+//TODO-ADD DELETE ARTIFACT
