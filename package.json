@@ -1,17 +1,23 @@
 {
-	"name": "wrappergithub",
-	"version": "0.0.4",
-	"description": "A github wrapper made in deno compiled to nodejs",
-	"main": "dist/node.js",
-	"repository": "https://github.com/SkyBlockDev/githubwrapper",
-	"author": "SkyBlockDev",
-	"license": "MIT",
-	"private": false,
-	"dependencies": {
-		"node-fetch": "^2.6.1"
-	},
-	"devDependencies": {
-		"esbuild": "^0.12.16",
-		"prettier": "^2.3.2"
-	}
+  "name": "wrappergithub",
+  "version": "0.0.4",
+  "description": "A github wrapper made in deno compiled to nodejs",
+  "main": "dist/node.js",
+  "repository": "https://github.com/SkyBlockDev/githubwrapper",
+  "author": "SkyBlockDev",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "format": "prettier --write src/**"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.12.16",
+    "prettier": "^2.3.2"
+  },
+  "prettier": {
+    "printWidth": 200
+  }
 }

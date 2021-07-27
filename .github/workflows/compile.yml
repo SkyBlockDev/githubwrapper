@@ -13,13 +13,14 @@ jobs:
           deno-version: vx.x.x
       - uses: actions/setup-node@v2
         with:
-          node-version: '14'
-          cache: 'yarn'
+          node-version: "14"
+          cache: "yarn"
       - run: yarn install
 
       - run: deno bundle mod.ts > dist/browser.bundle.js
       - run: yarn esbuild dist/browser.bundle.js --outfile=dist/node.js --platform=node --sourcemap=inline --target=es2020 --format=cjs
       - run: sed -i '1s/^/const fetch = require("node-fetch");/' dist/node.js
+      - run: yarn format
       - run: git add .
       - name: Check for modified files
         id: git-check
