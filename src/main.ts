@@ -38,13 +38,15 @@ export const get = async (endpoint: string, options: Get = {}) => {
 	};
 
 	if (!endpoint.startsWith('/')) endpoint = '/' + endpoint;
-	if (options.needsToken && !github_token)
+	if (options.needsToken && !github_token) {
 		throw new Error(`${endpoint} REQUIRES A TOKEN`);
+	}
 
-	if (github_token)
+	if (github_token) {
 		options.extraHeaders
 			? (options.extraHeaders.authorization = `token ${github_token}`)
 			: (options.extraHeaders = { authorization: `token ${github_token}` });
+	}
 
 	let url = github_api_url + endpoint;
 

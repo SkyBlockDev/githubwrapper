@@ -11,7 +11,8 @@ console.log(await getRepository('skyblockdev', 'lowestbins'));
 
 # CONTRIBUTING
 
-You can contribute to this project by making a pull request adding features/fixing things
+You can contribute to this project by making a pull request adding
+features/fixing things
 
 # GOALS:
 
