@@ -1,0 +1,13 @@
+{
+	"name": "githubwrapper",
+	"version": "0.0.1",
+	"description": "A github wrapper made in deno compiled to nodejs",
+	"main": "dist/node.js",
+	"repository": "https://github.com/SkyBlockDev/githubwrapper",
+	"author": "SkyBlockDev",
+	"license": "MIT",
+	"private": false,
+	"dependencies": {
+		"node-fetch": "^2.6.1"
+	}
+}
