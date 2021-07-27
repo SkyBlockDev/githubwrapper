@@ -3,7 +3,6 @@
   "version": "0.0.5",
   "description": "A github wrapper made in deno compiled to nodejs",
   "main": "dist/node.js",
-  "types": "dist/index.d.ts",
   "repository": "https://github.com/SkyBlockDev/githubwrapper",
   "author": "SkyBlockDev",
   "license": "MIT",
