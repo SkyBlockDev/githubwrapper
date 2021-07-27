@@ -19,7 +19,7 @@ jobs:
 
       - run: deno bundle mod.ts > dist/browser.bundle.js
       - run: yarn esbuild dist/browser.bundle.js --outfile=dist/node.js --platform=node --sourcemap=inline --target=es2020 --format=cjs
-      - run: sed -i '1s/^/globalThis.fetch ??= require?.("node-fetch");/' dist/node.js
+      - run: sed -i '1s/^/const fetch = require("node-fetch");/' dist/node.js
       - run: git add .
       - name: Check for modified files
         id: git-check
