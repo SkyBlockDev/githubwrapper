@@ -89,6 +89,11 @@ async function getGist1(id) {
     if (res.message) throw githubError1.notFound(`GIST`, id);
     return res;
 }
+async function getGistCommits1(id) {
+    const res = await (await get1(`gists/${id}/commits`)).json();
+    if (res.message) throw githubError1.notFound(`GIST`, id);
+    return res;
+}
 async function deleteGist1(id) {
     const res = await (await get1(`gists/${id}`, {
         method: 'DELETE',
@@ -102,6 +107,7 @@ export { createGist1 as createGist };
 export { updateGist1 as updateGist };
 export { viewGists1 as viewGists };
 export { getGist1 as getGist };
+export { getGistCommits1 as getGistCommits };
 export { deleteGist1 as deleteGist };
 var Language1;
 (function(Language1) {
