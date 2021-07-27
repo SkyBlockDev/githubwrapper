@@ -1,7 +1,7 @@
 // deno-lint-ignore-file
 import { get } from '../main.ts';
 import { githubError } from '../error.ts';
-import { GetRepositoryResponse } from '../types.ts';
+import type { GetRepositoryResponse } from '../types.ts';
 
 export interface GetRepository {
 	org: string;
