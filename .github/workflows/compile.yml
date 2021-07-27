@@ -19,7 +19,7 @@ jobs:
 
       - run: deno bundle mod.ts > dist/browser.bundle.js
       - run: yarn esbuild dist/browser.bundle.js --outfile=node.js --platform=node --sourcemap=inline --target=es2020 --format=cjs
-
+      - run: git add .
       - name: Check for modified files
         id: git-check
         run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
@@ -29,5 +29,5 @@ jobs:
           git config --global user.name 'SkyBlockDev' 
           git config --global user.email '72335827+SkyBlockDev@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${{ secrets.TOKEN }}@github.com/${{ github.repository }}
-          git commit -am "Automated changes"
+          git commit -am "Update files"
           git push
