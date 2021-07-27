@@ -18,7 +18,7 @@ jobs:
       - run: yarn install
 
       - run: deno bundle mod.ts > dist/browser.bundle.js
-      - run: yarn esbuild dist/browser.bundle.js --outfile=node.js --platform=node --sourcemap=inline --target=es2020 --format=cjs
+      - run: yarn esbuild dist/browser.bundle.js --outfile=dist/node.js --platform=node --sourcemap=inline --target=es2020 --format=cjs
       - run: git add .
       - name: Check for modified files
         id: git-check
