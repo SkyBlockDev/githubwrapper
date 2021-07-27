@@ -7,6 +7,7 @@ import type {
 	CreateGistResponse,
 	ViewGistsResponse,
 	GetGistResponse,
+	GetGistCommitsResponse,
 } from '../types.ts';
 
 export interface CreateGist {
@@ -73,6 +74,14 @@ export async function viewGists(
  */
 export async function getGist(id: string): Promise<GetGistResponse> {
 	const res = await (await get(`gists/${id}`)).json();
+	if (res.message) throw githubError.notFound(`GIST`, id);
+	return res;
+}
+
+export async function getGistCommits(
+	id: string
+): Promise<GetGistCommitsResponse[]> {
+	const res = await (await get(`gists/${id}/commits`)).json();
 	if (res.message) throw githubError.notFound(`GIST`, id);
 	return res;
 }
