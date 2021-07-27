@@ -316,3 +316,25 @@ export interface User {
 	type: string;
 	site_admin: boolean;
 }
+
+export interface GetRepositoryArtifactsResponse {
+	total_count: number;
+	artifacts: Artifact[];
+}
+
+export interface Artifact {
+	id: number;
+	node_id: string;
+	name: Name;
+	size_in_bytes: number;
+	url: string;
+	archive_download_url: string;
+	expired: boolean;
+	created_at: string;
+	updated_at: string;
+	expires_at: string;
+}
+
+export enum Name {
+	BuildArtifacts = 'build-artifacts',
+}
