@@ -9,14 +9,15 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - uses: denoland/setup-deno@v1
+        with:
+          deno-version: vx.x.x
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
           cache: 'yarn'
       - run: yarn install
       - run: yarn test
-        with:
-          deno-version: vx.x.x
+
       - run: deno bundle mod.ts >> dist/browser.bundle.js
       - run: yarn esbuild dist/browser.bundle.js --outfile=node.js --platform=node --sourcemap=inline --target=es2020 --format=cjs
 
