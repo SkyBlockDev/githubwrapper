@@ -2,6 +2,7 @@ name: Bundle deno and commit files
 on: [push]
 jobs:
   test:
+    runs-on: ubuntu-latest
     env:
       TOKEN: ${{ secrets.TOKEN }}
     steps:
