@@ -75,7 +75,7 @@ export { getRepository1 as getRepository };
 export { getRepositoryArtifacts1 as getRepositoryArtifacts };
 export { getRepositoryArtifact1 as getRepositoryArtifact };
 async function getUser1(user) {
-    const res = await (await get1(`user/${user}`)).json();
+    const res = await (await get1(`users/${user}`)).json();
     if (res.message) throw githubError1.notFound("USER", user);
     return res;
 }
