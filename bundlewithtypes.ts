@@ -1,4 +1,4 @@
-const data = await Deno.emit("mod.ts", {
+const data = await Deno.emit("dist/browser.bundle.js", {
   compilerOptions: {
     declaration: true,
     emitDeclarationOnly: true,

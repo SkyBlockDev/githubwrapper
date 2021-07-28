@@ -1,16 +1,24 @@
 name: Bundle deno and commit files
 on: [push]
 jobs:
-  bundle:
-    runs-on: ubuntu-latest
+  test:
+    env:
+      TOKEN: ${{ secrets.TOKEN }}
     steps:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.head_ref }}
-
       - uses: denoland/setup-deno@v1
         with:
           deno-version: vx.x.x
+      - run: deno test -A tests/mod.ts
+
+  bundle:
+    needs: ["test"]
+    runs-on: ubuntu-latest
+    env:
+      TOKEN: ${{ secrets.TOKEN }}
+    steps:
       - uses: actions/setup-node@v2
         with:
           node-version: "14"

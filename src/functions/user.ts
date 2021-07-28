@@ -4,7 +4,7 @@ import { githubError } from "../error.ts";
 import type { GetUserResponse } from "../types.ts";
 
 export async function getUser(user: string): Promise<GetUserResponse> {
-  const res = await (await get(`user/${user}`)).json();
+  const res = await (await get(`users/${user}`)).json();
   if (res.message) throw githubError.notFound("USER", user);
   return res;
 }
