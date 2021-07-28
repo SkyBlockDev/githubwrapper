@@ -18,6 +18,7 @@ export async function createGist(options: CreateGist): Promise<CreateGistRespons
       needsToken: true,
     })
   ).json();
+  if (res.message) throw githubError.error(res);
   return res;
 }
 /**
@@ -31,6 +32,7 @@ export async function updateGist(id: string, options: CreateGist): Promise<Creat
       needsToken: true,
     })
   ).json();
+  if (res.message) throw githubError.error(res);
   return res;
 }
 
@@ -53,6 +55,7 @@ export async function viewGists(options?: ViewGists): Promise<ViewGistsResponse[
       params: options,
     })
   ).json();
+  if (res.message) throw githubError.error(res);
   return res;
 }
 /**
@@ -61,13 +64,13 @@ export async function viewGists(options?: ViewGists): Promise<ViewGistsResponse[
  */
 export async function getGist(id: string): Promise<GetGistResponse> {
   const res = await (await get(`gists/${id}`)).json();
-  if (res.message) throw githubError.notFound(`GIST`, id);
+  if (res.message) throw githubError.error(res);
   return res;
 }
 
 export async function getGistCommits(id: string): Promise<GetGistCommitsResponse[]> {
   const res = await (await get(`gists/${id}/commits`)).json();
-  if (res.message) throw githubError.notFound(`GIST`, id);
+  if (res.message) throw githubError.error(res);
   return res;
 }
 
@@ -83,6 +86,6 @@ export async function deleteGist(id: string): Promise<boolean> {
     })
   ).text();
   if (!res) return true;
-  if (JSON.parse(res).message) throw githubError.notFound(`GIST`, id);
+  if (JSON.parse(res).message) throw githubError.error(JSON.parse(res));
   return false;
 }
