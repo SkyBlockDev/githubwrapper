@@ -20,8 +20,8 @@ jobs:
       - run: deno bundle mod.ts > dist/browser.bundle.js
       - run: echo "import fetch from 'node-fech'" > dist/index.mjs
       - run: cat dist/browser.bundle.js >> dist/index.mjs
-      - run: yarn esbuild dist/browser.bundle.js --outfile=dist/node.js --platform=node --sourcemap=inline --target=es2020 --format=cjs
-      - run: sed -i '1s/^/const fetch = require("node-fetch");/' dist/node.js
+      - run: yarn esbuild dist/browser.bundle.js --outfile=dist/index.js --platform=node --sourcemap=inline --target=es2020 --format=cjs
+      - run: sed -i '1s/^/const fetch = require("node-fetch");/' dist/index.js
       - run: yarn format
       - run: deno run -A --no-check --unstable bundlewithtypes.ts
       - run: git add .
