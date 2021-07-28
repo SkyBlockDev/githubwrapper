@@ -44,40 +44,50 @@ export { setToken1 as setToken };
 export { setEndPoint1 as setEndPoint };
 export { get1 as get };
 class githubError1 extends Error {
-    static notFound(thing, data) {
-        return new this(`${thing.toUpperCase()} NOT FOUND "${data}"`);
+    static error(message) {
+        throw new this(`${message.message.toUpperCase()}, DOCUMENTATION URL: ${message.documentation_url}`);
     }
 }
 export { githubError1 as githubError };
 async function getRepositories1(org) {
     const res = await (await get1(`orgs/${org}/repos`)).json();
-    if (res.message) throw githubError1.notFound(`ORG`, org);
+    if (res.message) throw githubError1.error(res);
+    return res;
+}
+async function createRepository1(org, options) {
+    const res = await (await get1(`orgs/${org}/repos`, {
+        method: "POST",
+        body: JSON.stringify(options),
+        needsToken: true
+    })).json();
+    if (res.message) throw githubError1.error(res);
     return res;
 }
 async function getRepository1(org, repo) {
     const res = await (await get1(`repos/${org}/${repo}`)).json();
-    if (res.message) throw githubError1.notFound(`REPOSITORY`, `${org}/${repo}`);
+    if (res.message) throw githubError1.error(res);
     return res;
 }
 async function getRepositoryArtifacts1(org, repo, options) {
     const res = await (await get1(`repos/${org}/${repo}/actions/artifacts`, {
         params: options
     })).json();
-    if (res.message) throw githubError1.notFound(`REPOSITORY`, `${org}/${repo}`);
+    if (res.message) throw githubError1.error(res);
     return res;
 }
 async function getRepositoryArtifact1(org, repo, id) {
     const res = await (await get1(`repos/${org}/${repo}/actions/artifacts/${id}`)).json();
-    if (res.message) throw githubError1.notFound(`REPOSITORY`, `${org}/${repo}`);
+    if (res.message) throw githubError1.error(res);
     return res;
 }
 export { getRepositories1 as getRepositories };
+export { createRepository1 as createRepository };
 export { getRepository1 as getRepository };
 export { getRepositoryArtifacts1 as getRepositoryArtifacts };
 export { getRepositoryArtifact1 as getRepositoryArtifact };
 async function getUser1(user) {
     const res = await (await get1(`users/${user}`)).json();
-    if (res.message) throw githubError1.notFound("USER", user);
+    if (res.message) throw githubError1.error(res);
     return res;
 }
 export { getUser1 as getUser };
@@ -87,6 +97,7 @@ async function createGist1(options) {
         body: JSON.stringify(options),
         needsToken: true
     })).json();
+    if (res.message) throw githubError1.error(res);
     return res;
 }
 async function updateGist1(id, options) {
@@ -95,6 +106,7 @@ async function updateGist1(id, options) {
         body: JSON.stringify(options),
         needsToken: true
     })).json();
+    if (res.message) throw githubError1.error(res);
     return res;
 }
 async function viewGists1(options) {
@@ -103,16 +115,17 @@ async function viewGists1(options) {
         needsToken: true,
         params: options
     })).json();
+    if (res.message) throw githubError1.error(res);
     return res;
 }
 async function getGist1(id) {
     const res = await (await get1(`gists/${id}`)).json();
-    if (res.message) throw githubError1.notFound(`GIST`, id);
+    if (res.message) throw githubError1.error(res);
     return res;
 }
 async function getGistCommits1(id) {
     const res = await (await get1(`gists/${id}/commits`)).json();
-    if (res.message) throw githubError1.notFound(`GIST`, id);
+    if (res.message) throw githubError1.error(res);
     return res;
 }
 async function deleteGist1(id) {
@@ -121,7 +134,7 @@ async function deleteGist1(id) {
         needsToken: true
     })).text();
     if (!res) return true;
-    if (JSON.parse(res).message) throw githubError1.notFound(`GIST`, id);
+    if (JSON.parse(res).message) throw githubError1.error(JSON.parse(res));
     return false;
 }
 export { createGist1 as createGist };
