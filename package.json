@@ -1,12 +1,20 @@
 {
   "name": "wrappergithub",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "A github wrapper made in deno compiled to nodejs",
-  "main": "dist/node.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": "https://github.com/SkyBlockDev/githubwrapper",
   "author": "SkyBlockDev",
   "license": "MIT",
   "private": false,
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.js"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "format": "prettier --write src/**"
   },
